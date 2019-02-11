@@ -1,0 +1,85 @@
+<title> Jeopardy! Board </title>
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<button type="button" class="btn btn-primary" id="doubleButton" ng-click="loadDouble()"><b>Go to Double Jeopardy</b></button>
+<button type="button" class="btn btn-primary" id="finalButton" ng-click="loadFinal()" disabled><b>Go to Final Jeopardy</b></button>
+<p style="font-size: 23px; display: inline;">&nbsp;&nbsp; <b> Scores: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{playerOne}}: {{playerOneScore}} | {{playerTwo}}: {{playerTwoScore}} | {{playerThree}}: {{playerThreeScore}} </p>
+<div style='background-color: #060CE9;'>
+<table id='jeopardy'>
+    <thead>
+        <tr>
+            <th> {{category1.category}} </th>
+            <th> {{category2.category}} </th>
+            <th> {{category3.category}} </th>
+            <th> {{category4.category}} </th>
+            <th> {{category5.category}} </th>
+            <th> {{category6.category}} </th>
+        </tr>
+     </thead>
+     <tbody> 
+        <tr ng-repeat="(key, clue) in clues track by $index">
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertClue('1', clue.object1)"><b>{{clue.object1}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertClue('2', clue.object2)"><b>{{clue.object2}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertClue('3', clue.object3)"><b>{{clue.object3}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertClue('4', clue.object4)"><b>{{clue.object4}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertClue('5', clue.object5)"><b>{{clue.object5}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertClue('6', clue.object6)"><b>{{clue.object6}}</b></a></td>
+        </tr> 
+     </tbody>    
+</table>
+    
+<table id="double" style="display:none">
+  <thead>
+        <tr>
+            <th> {{category7.category}} </th>
+            <th> {{category8.category}} </th>
+            <th> {{category9.category}} </th>
+            <th> {{category10.category}} </th>
+            <th> {{category11.category}} </th>
+            <th> {{category12.category}} </th>
+        </tr>
+     </thead>
+     <tbody>
+        <tr ng-repeat="(key, clue) in doubleClues track by $index">
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertDoubleClue('1', clue.object1)"><b>{{clue.object1}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertDoubleClue('2', clue.object2)"><b>{{clue.object2}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertDoubleClue('3', clue.object3)"><b>{{clue.object3}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertDoubleClue('4', clue.object4)"><b>{{clue.object4}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertDoubleClue('5', clue.object5)"><b>{{clue.object5}}</b></a></td>
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertDoubleClue('6', clue.object6)"><b>{{clue.object6}}</b></a></td>
+        </tr> 
+     </tbody>    
+</table>
+    <table id="final" style="display:none">
+  <thead>
+        <tr>
+            <th> {{category13.category}} </th>
+        </tr>
+     </thead>
+     <tbody>
+        <tr ng-repeat="clue in finalClues">
+            <td> <a data-toggle="modal" data-target="#clueModal" ng-model="clueOpen" ng-click="alertFinalClue('1', clue.object1)"><b>{{clue.object1}}</b></a></td>
+            
+        </tr> 
+     </tbody>    
+</table>
+</div>
+<div class="modal fade" id="clueModal" tabindex="-1" role="dialog" aria-labelledby="clueLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="font-size: 77px;">
+          <br><br>
+          <p id="clueQuestion">{{question}}</p>
+        <br><br><br>
+      </div>
+      <div class="modal-footer">
+          <button type="button" style="background-color: #3cafd3; color: #ffffff; height: 50px; width: 200px;  line-height: 10px;  border-radius: 100px;" ng-click="subtractScore(score, '1')">Subtract {{score}}</button> {{playerOne}} <button type="button" style="background-color: #3cafd3; color: #ffffff; height: 50px; width: 200px;  line-height: 10px;  border-radius: 100px;" ng-click="addScore(score, '1')">Add {{score}}</button> &nbsp;
+          <button type="button" style="background-color: #3cafd3; color: #ffffff; height: 50px; width: 200px;  line-height: 10px;  border-radius: 100px;" ng-click="subtractScore(score, '2')">Subtract {{score}}</button> {{playerTwo}} <button type="button"  style="background-color: #3cafd3; color: #ffffff; height: 50px; width: 200px;  line-height: 10px;  border-radius: 100px;" ng-click="addScore(score, '2')">Add {{score}}</button> &nbsp;
+          <button type="button" style="background-color: #3cafd3; color: #ffffff; height: 50px; width: 200px;  line-height: 10px;  border-radius: 100px;" ng-click="subtractScore(score, '3')">Subtract {{score}}</button> {{playerThree}} <button type="button"  style="background-color: #3cafd3; color: #ffffff; height: 50px; width: 200px;  line-height: 10px;  border-radius: 100px;" ng-click="addScore(score, '3')">Add {{score}}</button> &nbsp; 
+          <br><br><span id="timer" style="font-size: 40px;"></span><button type="button" class="btn btn-primary" ng-click="playerAnswer()"><b>Someone Answered / Pause</b></button>
+          
+      </div>
+    </div>
+  </div>
+</div> 

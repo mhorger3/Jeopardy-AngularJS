@@ -1,0 +1,207 @@
+/* set the background color of the page and resize the page dynamically */
+html, body {
+    height: 100%;
+    background-color: #f7f7f7;
+    padding: 0px 5px 0px 5px;
+}
+
+/* set the modal width for dynamic resize */
+body .modal-dialog {
+    width: 90%;
+}
+a {
+    color: #DAA520;
+    cursor: pointer;
+}
+a:hover, a:focus {
+    color: #DAA520;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* set the image height and width, as well as padding, for dynamic resize */
+img {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 15%;
+    bottom: 0;
+}
+/* define a custom class for a vertical line */
+.verticalLine {
+  border-left: 1px solid #ffffff;
+  text-align: center;
+}
+/* set the page header font size */
+h1{
+    font-size: 27px;
+}
+/* set the sub section header font size */
+h3 {
+    font-size: 20px;
+}
+ul {
+    list-style-type: none;
+}
+/* ### Button Styles ### */
+
+/* set the pending to qa button group style (dashboard.html) */
+.pending_right_buttons {
+    border-radius: 8px;
+    float: right;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+}
+/* set the default button style */
+.btn {
+    background-color: #3cafd3;
+    color: #ffffff;
+    height: 50px;
+    width: 250px;
+    line-height: 10px;
+    border-radius: 100px;
+}
+
+#jeopardy, #double {
+  border-collapse: collapse;
+  width: 100%;
+  height: 850px;
+}
+
+table {
+    table-layout: fixed;
+}
+
+table, th, td {
+    border: 5px solid black;
+}
+
+th {
+    text-align: center;
+    color: white; 
+    font-size: 32px;
+}
+
+td {
+    text-align: center;
+    color: #DAA520;
+    width: 33%;
+    font-size: 40px;
+}
+
+
+
+/* ### Navigation Bars ### */
+/* our navigation (action) bar */
+.navbar-inverse {
+     background-color: #26004d;
+     border-color: #080808;
+     color: #ffffff;
+     font-size: 40px;
+}
+.navbar-inverse .navbar-header > a {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-header > a:hover,
+.navbar-inverse .navbar-header > a:focus {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #3085db;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #3085db;
+    background-color: #26004d;
+}
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #3085db;
+    background-color: #26004d;
+}
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}
+/* ### Document Styles ### */
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
+.dataTables_filter { 
+    display: none; 
+}
+
+.modal-dialog {
+  width: 95%;
+  height: 95%;
+}
+
+.model-footer {
+    font-size: 20px;
+}
+
+.modal-content {
+  height: auto;
+  border-radius: 0;
+  color: white;
+  text-align: center;
+  background-color: #060CE9;
+  vertical-align: middle;
+}
+

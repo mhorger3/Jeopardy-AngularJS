@@ -1,0 +1,131 @@
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<h1> <b> Welcome to Jeopardy! </b></h1>
+<p> This classic trivia game is for 4 players (one host, three contestants). This console view is for the host only. They are allowed to pick the categories and view the answers.
+    <br>The game will generate a new tab for both the host sheet and the clue screen for players. The host is responsible for adding the scores to the players via the clue screen.<br>
+    <b> To-do: Daily Double Clues with Modal Screen / Single-player / Mobile Cross-Play</b> 
+<h3> <b> Select Categories </b> </h3>
+<p> Please select 13 categories. The first 6 you will select will be for the first round of Jeopardy, the other 6 will be for Double Jeopardy.
+    The final Jeopardy category will be the 13th category.<br> If you choose not to select categories, you can simply click on 'Use All Random Categories'. 
+<b> HOST! UPON GENERATING THE ANSWERS, MAKE SURE THE CATEGORIES ARE VALID BY CHECKING THE HOST DASHBOARD! AN ALERT WILL TELL YOU IF ONE ISN'T VALID. </b></p>
+<select id="selectCategories" class="form-control">
+    <option ng-repeat="option in categories" value="{{option.id}}">{{option.title}}</option>
+</select>
+<h4> <b>Jeopardy:</b></h4>
+<ul>
+<li ng-repeat="category in firstRound track by $index">
+    {{category.title}}
+</li>
+</ul>
+<h4> <b>Double Jeopardy:</b></h4>
+<ul>
+<li ng-repeat="category in secondRound track by $index">
+    {{category.title}}
+</li>
+</ul>
+<h4> <b>Final Jeopardy:</b></h4>
+<ul>
+<li ng-repeat="category in finalRound track by $index">
+    {{category.title}}
+</li>
+</ul>
+
+
+<button type="button" class="btn btn-primary" id="addGameButton" ng-click="addGame()"> 
+        <b>Add to Game</b> 
+</button>
+<button type="button" class="btn btn-primary" id="lastSetButton" ng-click="previousSet()" disabled> 
+        <b>See Last Category Set (Last 100)</b> 
+</button>
+<button type="button" class="btn btn-primary" id="nextSetButton" ng-click="nextSet()"> 
+        <b>See Next Category Set (Next 100)</b> 
+</button>
+<button type="button" class="btn btn-primary" id="generateRandomCluesButton" ng-click="generateRandomClues()"> 
+        <b>Use All Random From This Set</b> 
+</button>
+<button type="button" class="btn btn-primary" id="clearCategoriesButton" ng-click="clearCategories()" disabled> 
+        <b>Clear Selected Categories</b> 
+</button>
+<button type="button" class="btn btn-primary" id="createCategoriesButton" data-toggle="modal" data-target="#createCategoryModal"> 
+        <b>Create a Category</b> 
+</button>
+<hr>
+<h3> <b> Select Characters / Teams </b> </h3>
+<p> Please enter the player names or team names for those participating in the game of Jeopardy. You cannot start the game until all players have a name. </p>
+<span>
+Player One / Team 1: &nbsp;&nbsp;&nbsp; <input type="text" id="playerOne">&nbsp;&nbsp;&nbsp;
+Player Two / Team 2: &nbsp;&nbsp;&nbsp; <input type="text" id="playerTwo">&nbsp;&nbsp;&nbsp;
+Player Three / Team 3: &nbsp;<input type="text" id="playerThree"><br>
+</span><hr>
+<div class = "pending_right_buttons">
+    <button type="button" class="btn btn-primary" id="generateAnswers" ng-click="generateAnswers()"> 
+        <b>Generate Clues & Answers</b> 
+    </button>
+    <button type="button" class="btn btn-primary" id="generateGame" ng-click="startGame()">
+        <b>Start Game</b>
+    </button>
+ </div>
+
+<!-- Create Mnemonic Modal -->
+<div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="createCategoryLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:white; color: black;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Create a Category</h2>
+      </div>
+      <div class="modal-body">
+      <form class="form-inline" id="test">
+            <div class="form-group">
+                Category Name:
+                <input type="text" class="form-control" id="categoryName" ng-model="create_category_name">
+            </div> <br>
+            <div class="form-group">
+                Question 1 ($200):
+                <input type="text" class="form-control" id="mnemonicQuestion1" ng-model="create_category_question1">
+            </div>
+            <div class="form-group">
+                Answer 1 ($200):
+                <input type="text" class="form-control" id="mnemonicAnswer1" ng-model="create_category_answer1">
+            </div><br>
+          <div class="form-group">
+                Question 2 ($400):
+                <input type="text" class="form-control" id="mnemonicQuestion2" ng-model="create_category_question2">
+            </div>
+            <div class="form-group">
+                Answer 2 ($400):
+                <input type="text" class="form-control" id="mnemonicAnswer2" ng-model="create_category_answer2">
+            </div><br>
+          <div class="form-group">
+                Question 3 ($600):
+                <input type="text" class="form-control" id="mnemonicQuestion3" ng-model="create_category_question3">
+            </div>
+            <div class="form-group">
+                Answer 3 ($600):
+                <input type="text" class="form-control" id="mnemonicAnswer3" ng-model="create_category_answer3">
+            </div><br>
+          <div class="form-group">
+                Question 4 ($800):
+                <input type="text" class="form-control" id="mnemonicQuestion4" ng-model="create_category_question4">
+            </div>
+            <div class="form-group">
+                Answer 4 ($800):
+                <input type="text" class="form-control" id="mnemonicAnswer4" ng-model="create_category_answer4">
+            </div><br>
+          <div class="form-group">
+                Question 5 ($1000):
+                <input type="text" class="form-control" id="mnemonicQuestion5" ng-model="create_category_question5">
+            </div>
+            <div class="form-group">
+                Answer 5 ($1000):
+                <input type="text" class="form-control" id="mnemonicAnswer5" ng-model="create_category_answer5">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="form1" ng-model="createModal" ng-click="createCategory()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
