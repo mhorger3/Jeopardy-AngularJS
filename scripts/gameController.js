@@ -371,30 +371,73 @@ configApp.controller('gameController', function($scope, $location){
     document.getElementById("timer").innerHTML= $scope.count + " secs"; // watch for spelling
     };
     
+    // functions used to send SQL updates once they change score    
     $scope.subtractScore = function(score, player){
-       if(player == '1'){
+        var playerData;
+       var playerScore;
+        if(player == '1'){
+            playerData = $scope.playerOne;
            $scope.playerOneScore = $scope.playerOneScore - score;
+           playerScore = $scope.playerOneScore;
        } else if(player == '2'){
+        playerData = $scope.playerTwo;
            $scope.playerTwoScore = $scope.playerTwoScore - score;
+           playerScore = $scope.playerTwoScore;
        } else if(player == '3'){
+        playerData = $scope.playerThree;
            $scope.playerThreeScore = $scope.playerThreeScore - score;
+           playerScore = $scope.playerThreeScore;
        }
+       $.ajax({
+        type: 'GET',
+        url: "http://localhost:8080/updateScore",
+        processData: true,
+        crossDomain: true,
+        data: {user:  playerData, score: playerScore},
+        dataType: "json",
+        success: function (data) {
+            $scope.$apply(function(){
+                console.log(data);
+            });              
+        }
+    });  
        $scope.count = $scope.newCount;
        $scope.counter = setInterval(timer, 1000);
     };
     
     $scope.addScore = function(score, player){
-       if(player == '1'){
+       var playerData;
+       var playerScore;
+        if(player == '1'){
+            playerData = $scope.playerOne;
            $scope.playerOneScore = $scope.playerOneScore + score;
+           playerScore = $scope.playerOneScore;
        } else if(player == '2'){
+        playerData = $scope.playerTwo;
            $scope.playerTwoScore = $scope.playerTwoScore + score;
+           playerScore = $scope.playerTwoScore;
        } else if(player == '3'){
+        playerData = $scope.playerThree;
            $scope.playerThreeScore = $scope.playerThreeScore + score;
-       }  
+           playerScore = $scope.playerThreeScore;
+       }
+       $.ajax({
+        type: 'GET',
+        url: "http://localhost:8080/updateScore",
+        processData: true,
+        crossDomain: true,
+        data: {user:  playerData, score: playerScore},
+        dataType: "json",
+        success: function (data) {
+            $scope.$apply(function(){
+                console.log(data);
+            });              
+        }
+    });  
        clearInterval($scope.counter);
       $('#clueModal').modal('toggle');
     };
-    
+
     $scope.loadDouble = function() {
         $('#loading').show();
         $scope.count = 4;
@@ -423,9 +466,9 @@ configApp.controller('gameController', function($scope, $location){
     $(document).ready(function() {
         $scope.count = 4;
         $scope.counter = setInterval(openTimer, 1000);
-        $scope.audio = new Audio('sounds/Load');
+        $scope.audio = new Audio('sounds/Load'); // play the jeopardy load song
         $scope.audio.play();
-        $scope.generateDouble(secondList);
+        $scope.generateDouble(secondList); // generate the double answers
     });
     
 });

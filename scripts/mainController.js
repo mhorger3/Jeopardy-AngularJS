@@ -54,6 +54,7 @@ $scope.OpenInNewTabWinBrowser = function(url, oneList, twoList, finalList, playe
   win.p1 = playerOne;
   win.p2 = playerTwo;
   win.p3 = playerThree;
+
 };
 
 $scope.addGame = function() {
@@ -350,6 +351,20 @@ $scope.startGame = function() {
     var playerTwo = document.getElementById('playerTwo').value;
     var playerThree = document.getElementById('playerThree').value;
     $scope.OpenInNewTabWinBrowser("index.html#/screen", $scope.firstRoundObj, $scope.secondRoundObj, $scope.finalList, playerOne, playerTwo, playerThree);
+      // add the players to the player table in SQL
+    $.ajax({
+        type: 'GET',
+        url: "http://localhost:8080/startGame/",
+        processData: true,
+        crossDomain: true,
+        data: {player1: playerOne, player2: playerTwo, player3: playerThree},
+        dataType: "json",
+        success: function (data) {
+            $scope.$apply(function(){
+                console.log(data);
+            });              
+        }
+    });
 };
 
 $scope.generateDailyDouble = function(){
